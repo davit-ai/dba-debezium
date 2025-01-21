@@ -1,0 +1,16 @@
+{
+  "name": "PostgresConnector",
+  "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+  "database.history.kafka.topic": "dbhistory.employees",
+  "database.dbname": "cosmos",
+  "database.user": "postgres",
+  "database.password": "root",
+  "database.hostname": "host.docker.internal",
+  "database.port": "5432",
+  "table.include.list": "public.employees",
+  "plugin.name": "pgoutput",
+  "database.server.name": "pg-cosmos",
+  "topic.prefix": "cosmosdb",
+  "snapshot.mode": "initial",
+  "tasks.max": "1"
+}

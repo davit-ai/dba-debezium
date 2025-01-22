@@ -1,0 +1,19 @@
+{
+  "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
+  "table.name.format": "employees",
+  "connection.password": "root",
+  "primary.key.mode": "record_key",
+  "tasks.max": "1",
+  "topics": "cosmosdb.public.employees",
+  "hibernate.dialect": "org.hibernate.dialect.MySQLDialect",
+  "connection.username": "root",
+  "value.converter.schema.registry.url": "http://schema-registry:8081",
+  "delete.enabled": "true",
+  "schema.evolution": "basic",
+  "primary.key.fields": "id",
+  "connection.url": "jdbc:mysql://host.docker.internal:3306/jira",
+  "value.converter": "io.confluent.connect.avro.AvroConverter",
+  "insert.mode": "upsert",
+  "key.converter": "io.confluent.connect.avro.AvroConverter",
+  "key.converter.schema.registry.url": "http://schema-registry:8081"
+}

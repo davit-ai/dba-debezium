@@ -1,4 +1,4 @@
-version: '3.3'
+version: "3.3"
 services:
   # Zookeeper
   zookeeper:
@@ -28,9 +28,10 @@ services:
   # Kafdrop
   kafdrop:
     image: obsidiandynamics/kafdrop
-    restart: 'no'
+    restart: "no"
     environment:
       KAFKA_BROKERCONNECT: kafka:9092
+      SCHEMA_REGISTRY: http://schema-registry:8081
     ports:
       - 9000:9000
     depends_on:
@@ -47,6 +48,10 @@ services:
       CONFIG_STORAGE_TOPIC: cdc_connect_configs
       OFFSET_STORAGE_TOPIC: cdc_connect_offsets
       STATUS_STORAGE_TOPIC: cdc_connect_status
+      KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
@@ -60,3 +65,11 @@ services:
       - 8000:8000
     depends_on:
       - kconnect
+    # Schema Registry - add when add avro schema registry
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.3.0
+    ports:
+      - 8081:8081
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka:9092
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
